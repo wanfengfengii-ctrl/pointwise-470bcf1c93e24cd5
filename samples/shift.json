@@ -1,0 +1,46 @@
+{
+  "batch_id": "SHIFT-17",
+  "archive_rows": [
+    {"block_id": "run17-block-a", "locator": "ledger/17#a"},
+    {"block_id": "run17-block-b", "locator": "ledger/17#b"},
+    {"block_id": "run17-block-c", "locator": "ledger/17#c"}
+  ],
+  "graphs": {
+    "shared": {
+      "site": "east", "terminal": "east-input",
+      "nodes": ["east-input", "east-private-bottleneck", "east-p", "east-q"],
+      "links": [["east-input", "east-private-bottleneck", 1], ["east-private-bottleneck", "east-p", 1], ["east-private-bottleneck", "east-q", 1]],
+      "ports": [["P", "east-p"], ["Q", "east-q"]]
+    },
+    "independent": {
+      "site": "east", "terminal": "east-input",
+      "nodes": ["east-input", "east-p", "east-q"],
+      "links": [["east-input", "east-p", 1], ["east-input", "east-q", 1]],
+      "ports": [["P", "east-p"], ["Q", "east-q"]]
+    },
+    "receiver": {
+      "site": "west", "terminal": "west-output",
+      "nodes": ["west-output", "west-p", "west-q"],
+      "links": [["west-p", "west-output", 1], ["west-q", "west-output", 1]],
+      "ports": [["Q", "west-q"], ["P", "west-p"]]
+    },
+    "relay_sender": {
+      "site": "east", "terminal": "east-input",
+      "nodes": ["east-input", "east-p", "east-q", "east-r"],
+      "links": [["east-input", "east-p", 1], ["east-q", "east-r", 1]],
+      "ports": [["R", "east-r"], ["P", "east-p"], ["Q", "east-q"]]
+    },
+    "relay_receiver": {
+      "site": "west", "terminal": "west-output",
+      "nodes": ["west-output", "west-p", "west-q", "west-r"],
+      "links": [["west-p", "west-q", 1], ["west-r", "west-output", 1]],
+      "ports": [["Q", "west-q"], ["R", "west-r"], ["P", "west-p"]]
+    },
+    "relay_receiver_broken": {
+      "site": "west", "terminal": "west-output",
+      "nodes": ["west-output", "west-p", "west-q", "west-r"],
+      "links": [["west-r", "west-output", 1]],
+      "ports": [["P", "west-p"], ["Q", "west-q"], ["R", "west-r"]]
+    }
+  }
+}
