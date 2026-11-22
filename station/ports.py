@@ -1,11 +1,22 @@
 from collections.abc import Collection, Iterable
 from dataclasses import dataclass
+from itertools import combinations
 
 
 @dataclass(frozen=True, slots=True)
 class PortBinding:
     name: str
     node: str
+
+
+def port_subsets(ports: Iterable[str]) -> tuple[tuple[str, ...], ...]:
+    """Return every subset of the given port names as sorted tuples in canonical order."""
+    ordered = tuple(sorted(ports))
+    return tuple(
+        tuple(subset)
+        for size in range(len(ordered) + 1)
+        for subset in combinations(ordered, size)
+    )
 
 
 def validate_ports(ports: Iterable[PortBinding], nodes: Collection[str]) -> tuple[PortBinding, ...]:
